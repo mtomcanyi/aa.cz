@@ -1,0 +1,21 @@
+# Run command
+# ---------------
+# export JEKYLL_VERSION=4.0
+# docker-compose -f jekyll.yml run --rm --service-ports jekyll serve
+#
+# Source: https://github.com/envygeeks/jekyll-docker/blob/master/README.md
+version: "2"
+services:
+  node:
+    image: "jekyll:4"
+    working_dir: /srv/jekyll
+    environment:
+      - JEKYLL_VERSION=3.8
+    # We must include --service-ports option into the run command and allow "host" networking mode to make container accessible from host
+    network_mode: "host"
+    volumes:
+      # Mount repo dir for building and serving
+      - .:/srv/jekyll
+    expose:
+      - "4000"
+    command: "build"
